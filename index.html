@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Cria a tua carta EPIC Júnior</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#0C0C0C; --ink:#F5F5F3; --muted:rgba(245,245,243,.58); --glass:rgba(255,255,255,.045); --edge:rgba(255,255,255,.09);
+  --orange:#EE915A; --d-light:#B4C8AA; --d-dark:#003F49;
+  --font:"Lato","Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){--bg:#0C0C0C; --ink:#F5F5F3;} }
+:root[data-theme="dark"]{--bg:#0C0C0C; --ink:#F5F5F3;}
+*,*::before,*::after{box-sizing:inherit}
+[hidden]{display:none!important}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+html,body{margin:0; min-height:100%}
+body{background:var(--bg); color:var(--ink); font-family:var(--font); font-size:16px; line-height:1.55; -webkit-font-smoothing:antialiased; overflow-x:hidden; position:relative}
+.aura{position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(60vmax 45vmax at 18% -8%, color-mix(in srgb, var(--d-dark) 75%, transparent), transparent 70%),
+    radial-gradient(40vmax 30vmax at 95% 105%, rgba(238,145,90,.16), transparent 70%);
+  transition:background .6s}
+nav{position:relative; z-index:2; max-width:1180px; margin:0 auto; padding:20px 20px 0; display:flex; align-items:center; justify-content:space-between}
+.brand{display:flex; align-items:center; gap:10px; font-weight:700; font-size:16px; letter-spacing:.01em}
+.brand img{width:26px; height:auto}
+.pill{font:inherit; font-weight:700; font-size:15px; display:inline-flex; align-items:center; gap:10px; border-radius:999px; text-decoration:none; cursor:pointer; border:1px solid var(--edge); background:var(--glass); color:var(--ink); padding:7px 7px 7px 18px; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); transition:background .2s, transform .2s}
+.pill:hover{background:rgba(255,255,255,.09)}
+.pill .dot{width:32px; height:32px; border-radius:50%; display:grid; place-items:center; background:var(--ink); color:#0C0C0C}
+.pill.orange{background:var(--orange); color:#1F1F1F; border-color:transparent}
+.pill.orange .dot{background:#1F1F1F; color:var(--orange)}
+.pill.ghost{padding:12px 20px}
+.pill:focus-visible,.chip:focus-within,.field input:focus-visible{outline:2px solid var(--orange); outline-offset:3px}
+main{position:relative; z-index:1; max-width:1180px; margin:0 auto; padding:40px 20px 72px}
+.hero{text-align:center; margin:0 auto 44px; max-width:760px}
+.eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:13px; color:var(--muted); border:1px solid var(--edge); background:var(--glass); border-radius:999px; padding:6px 14px; margin-bottom:22px}
+.eyebrow i{width:6px; height:6px; border-radius:50%; background:var(--orange); display:block}
+h1{font-weight:900; text-transform:uppercase; font-size:clamp(40px,6.6vw,84px); line-height:.98; letter-spacing:-.02em; margin:0 0 18px}
+.lead{color:var(--muted); font-size:18px; margin:0 auto; max-width:46ch; font-weight:400}
+.work{display:grid; gap:28px; align-items:center}
+@media (min-width:900px){.work{grid-template-columns:1.1fr 1fr; gap:56px}}
+.stage{position:relative; display:grid; place-items:center; padding:12px 0}
+.stage::before{content:""; position:absolute; width:78%; aspect-ratio:1; border-radius:50%; background:radial-gradient(circle, color-mix(in srgb, var(--d-light) 30%, transparent), transparent 65%); filter:blur(30px); transition:background .6s}
+.stage canvas{position:relative; width:100%; max-width:400px; height:auto; display:block; filter:drop-shadow(0 30px 50px rgba(0,0,0,.55))}
+.panel{background:var(--glass); border:1px solid var(--edge); border-radius:28px; padding:28px; backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px)}
+@media (max-width:520px){.panel{padding:22px 18px; border-radius:22px}}
+.field{margin-bottom:26px}
+.field > .lbl{display:block; font-size:13px; color:var(--muted); margin-bottom:10px; font-weight:400}
+.field input[type=text]{width:100%; font:inherit; font-size:20px; font-weight:700; color:var(--ink); background:rgba(0,0,0,.25); border:1px solid var(--edge); border-radius:16px; padding:14px 18px; outline:none; transition:border-color .2s}
+.field input[type=text]:focus{border-color:var(--d-light)}
+.field input::placeholder{color:rgba(245,245,243,.3); font-weight:400}
+.chips{display:flex; flex-wrap:wrap; gap:8px}
+.chip{position:relative}
+.chip input{position:absolute; opacity:0; inset:0; margin:0; cursor:pointer}
+.chip span{display:inline-flex; align-items:center; gap:9px; border-radius:999px; padding:9px 16px 9px 10px; border:1px solid var(--edge); background:rgba(255,255,255,.03); font-size:15px; font-weight:700; color:var(--muted); transition:all .2s; pointer-events:none}
+.chip b{width:16px; height:16px; border-radius:50%; display:block; flex:none}
+.chip input:checked + span{color:#1F1F1F; border-color:transparent}
+.row{display:flex; gap:10px; flex-wrap:wrap; align-items:center}
+.note{color:var(--muted); font-size:13px; margin:10px 0 0}
+.actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px; padding-top:24px; border-top:1px solid var(--edge)}
+.status{min-height:1.4em; font-size:14px; font-weight:700; margin:14px 0 0; color:var(--d-light)}
+.overlay{position:fixed; inset:0; background:rgba(8,8,8,.94); display:none; flex-direction:column; align-items:center; justify-content:center; gap:16px; padding:calc(env(safe-area-inset-top,0px) + 20px) 20px calc(env(safe-area-inset-bottom,0px) + 20px); z-index:10}
+.overlay.on{display:flex}
+.overlay img{max-height:74vh; max-width:100%; border-radius:12px}
+.overlay p{margin:0; font-weight:700}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="aura" aria-hidden="true"></div>
+<nav>
+  <div class="brand"><img id="navLogo" alt=""><span>EPIC Júnior</span></div>
+  <a class="pill" id="applyTop" href="https://app.pipefy.com/public/form/NED5t8Hf" target="_blank" rel="noopener">Candidata-te <span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M4 10L10 4M5 4h5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></a>
+</nav>
+<main>
+  <header class="hero">
+    <div class="eyebrow"><i></i>Recrutamento 26/27</div>
+    <h1>Escolhe a tua equipa.</h1>
+    <p class="lead">Escolhe um departamento, escreve o teu nome e vê como ficas em campo. Podes trocar as vezes que quiseres.</p>
+  </header>
+
+  <div class="work">
+    <section class="stage" aria-label="Pré-visualização da carta">
+      <canvas id="card" width="1000" height="1400" role="img" aria-label="A tua carta EPIC Júnior"></canvas>
+    </section>
+
+    <section class="panel">
+      <div class="field">
+        <label class="lbl" for="name">Nome na camisola</label>
+        <input type="text" id="name" maxlength="16" placeholder="O teu nome" autocomplete="given-name">
+      </div>
+      <div class="field">
+        <span class="lbl" id="dlabel">Departamento</span>
+        <div class="chips" id="depts" role="radiogroup" aria-labelledby="dlabel"></div>
+      </div>
+      <div class="field">
+        <span class="lbl">Adiciona a tua fotografia</span>
+        <div class="row">
+          <button class="pill ghost" id="photoBtn" type="button">Adicionar fotografia</button>
+          <button class="pill ghost" id="rmphoto" type="button" hidden>Remover</button>
+          <input type="file" id="photo" accept="image/*" hidden>
+        </div>
+      </div>
+      <div class="actions">
+        <a class="pill orange" id="apply" href="https://app.pipefy.com/public/form/NED5t8Hf" target="_blank" rel="noopener">Candidata-te <span class="dot" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 14 14"><path d="M4 10L10 4M5 4h5v5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span></a>
+        <button class="pill ghost" id="save" type="button">Exportar imagem</button>
+      </div>
+      <p class="status" id="status" role="status"></p>
+      <p class="note">Partilha a tua carta nos stories e identifica a @epic.junior.uminho</p>
+    </section>
+  </div>
+</main>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-label="Guardar imagem">
+  <img id="ovimg" alt="A tua carta em formato story">
+  <p>Mantém o dedo na imagem para a guardar.</p>
+  <button class="pill ghost" id="ovclose" type="button">Fechar</button>
+</div>
+
+<script>
+// Link do formulário de candidatura
+const APPLY_URL = "https://app.pipefy.com/public/form/NED5t8Hf";
+const LOGO_SRC = "data:image/png;base64,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";
+
+const DEPTS = [
+  {id:"mkt", name:"Marketing", pos:"MKT", light:"#F0C47D", dark:"#D07237", stats:["CRI","DES","COM","EST","DAD","TEN"]},
+  {id:"rh",  name:"RH",        pos:"RH",  light:"#DEC9E9", dark:"#87549E", stats:["EMP","LID","COM","ORG","MOT","ESC"]},
+  {id:"prj", name:"Projetos",  pos:"PRJ", light:"#B4C8AA", dark:"#003F49", stats:["GES","PLA","RES","ORG","LID","ANA"]},
+  {id:"com", name:"Comercial", pos:"COM", light:"#B4D8DE", dark:"#002B59", stats:["NEG","PER","NET","COM","RES","REL"]},
+  {id:"qua", name:"Qualidade", pos:"QUA", light:"#F8A39D", dark:"#C53F51", stats:["RIG","PRO","ANA","MEL","DET","ORG"]},
+];
+const F = (w,s)=>`${w} ${s}px "Lato","Helvetica Neue",Arial,sans-serif`;
+const $ = id => document.getElementById(id);
+let dept = DEPTS[0], photo = null;
+
+const logo = new Image(); logo.src = LOGO_SRC;
+$("navLogo").src = LOGO_SRC;
+$("apply").href = APPLY_URL; $("applyTop").href = APPLY_URL;
+
+function hexA(hex, a){ const n=parseInt(hex.slice(1),16); return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`; }
+function tinted(color){
+  const c = document.createElement("canvas"); c.width = logo.naturalWidth; c.height = logo.naturalHeight;
+  const x = c.getContext("2d"); x.drawImage(logo,0,0); x.globalCompositeOperation="source-in"; x.fillStyle=color; x.fillRect(0,0,c.width,c.height);
+  return c;
+}
+
+function applyTheme(d){
+  const r = document.documentElement.style;
+  r.setProperty("--d-light", d.light); r.setProperty("--d-dark", d.dark);
+  document.querySelectorAll(".chip").forEach(ch=>{
+    const inp = ch.querySelector("input"), sp = ch.querySelector("span");
+    sp.style.background = inp.checked ? d.light : "";
+  });
+}
+
+const wrap = $("depts");
+DEPTS.forEach(d=>{
+  const lab = document.createElement("label"); lab.className="chip";
+  const inp = document.createElement("input"); inp.type="radio"; inp.name="dept"; inp.checked = d===dept;
+  inp.setAttribute("aria-label", d.name);
+  const sp = document.createElement("span");
+  const dot = document.createElement("b"); dot.style.background = `linear-gradient(135deg, ${d.light} 50%, ${d.dark} 50%)`;
+  sp.append(dot, document.createTextNode(d.name));
+  lab.append(inp, sp);
+  inp.addEventListener("change", ()=>{ dept=d; applyTheme(d); render(); });
+  wrap.append(lab);
+});
+
+function cardPath(ctx, W, H){
+  ctx.beginPath();
+  ctx.moveTo(W*.24, 0);
+  ctx.lineTo(W*.76, 0);
+  ctx.quadraticCurveTo(W*.79, H*.085, W, H*.095);
+  ctx.lineTo(W, H*.80);
+  ctx.bezierCurveTo(W, H*.875, W*.80, H*.895, W*.62, H*.94);
+  ctx.quadraticCurveTo(W*.535, H*.962, W*.5, H);
+  ctx.quadraticCurveTo(W*.465, H*.962, W*.38, H*.94);
+  ctx.bezierCurveTo(W*.20, H*.895, 0, H*.875, 0, H*.80);
+  ctx.lineTo(0, H*.095);
+  ctx.quadraticCurveTo(W*.21, H*.085, W*.24, 0);
+  ctx.closePath();
+}
+function insetPath(ctx, W, H, f){
+  ctx.save(); ctx.translate(W*f, H*f*.72); ctx.scale(1-2*f, 1-2*f*.72); cardPath(ctx, W, H); ctx.restore();
+}
+function fitText(ctx, text, weight, size, maxW){
+  let s=size; ctx.font=F(weight,s);
+  while(ctx.measureText(text).width>maxW && s>14){ s-=2; ctx.font=F(weight,s); }
+  return s;
+}
+function track(ctx, v){ if("letterSpacing" in ctx) ctx.letterSpacing = v+"px"; }
+
+function drawHero(ctx, W, H, d){
+  const cx = W*.62, cy = H*.30;
+  if (!logo.complete || !logo.naturalWidth) return;
+  const s = W*.30, ar = logo.naturalHeight/logo.naturalWidth;
+  const t = tinted(d.light);
+  ctx.save(); ctx.shadowColor = d.light; ctx.shadowBlur = W*.06; ctx.globalAlpha = .95;
+  ctx.drawImage(t, cx - s/2, cy - s*ar/2, s, s*ar); ctx.restore();
+  ctx.save(); ctx.globalAlpha = .55; ctx.drawImage(logo, cx - s/2, cy - s*ar/2, s, s*ar); ctx.restore();
+}
+
+function drawPhoto(ctx, W, H){
+  const rx=W*.26, ry=H*.04, rw=W*.74, rh=H*.52;
+  const off=document.createElement("canvas"); off.width=Math.round(rw); off.height=Math.round(rh);
+  const o=off.getContext("2d");
+  const s=Math.max(rw/photo.width, rh/photo.height), iw=photo.width*s, ih=photo.height*s;
+  o.drawImage(photo,(rw-iw)/2,(rh-ih)*.3,iw,ih);
+  o.globalCompositeOperation="destination-in";
+  const gv=o.createLinearGradient(0,0,0,rh); gv.addColorStop(0,"#000"); gv.addColorStop(.72,"#000"); gv.addColorStop(1,"rgba(0,0,0,0)");
+  o.fillStyle=gv; o.fillRect(0,0,rw,rh);
+  const gh=o.createLinearGradient(0,0,rw,0); gh.addColorStop(0,"rgba(0,0,0,0)"); gh.addColorStop(.22,"#000");
+  o.fillStyle=gh; o.fillRect(0,0,rw,rh);
+  ctx.drawImage(off,rx,ry);
+}
+
+function drawCard(ctx, x, y, W){
+  const H = W*1.4, d = dept;
+  const name = ($("name").value.trim() || "O teu nome").toUpperCase();
+  ctx.save(); ctx.translate(x,y);
+
+  // aro metálico
+  cardPath(ctx, W, H);
+  const rim = ctx.createLinearGradient(0,0,W,H);
+  rim.addColorStop(0, d.light); rim.addColorStop(.35, d.dark); rim.addColorStop(.6, d.light); rim.addColorStop(1, d.dark);
+  ctx.fillStyle = rim; ctx.fill();
+
+  // corpo
+  insetPath(ctx, W, H, .018);
+  const body = ctx.createLinearGradient(0,0,0,H);
+  body.addColorStop(0,"#2A2A2A"); body.addColorStop(.55,"#1F1F1F"); body.addColorStop(1,"#141414");
+  ctx.fillStyle = body; ctx.fill();
+  ctx.save(); insetPath(ctx, W, H, .018); ctx.clip();
+
+  const glow = ctx.createRadialGradient(W*.85, H*.1, 0, W*.85, H*.1, W*.95);
+  glow.addColorStop(0, hexA(d.dark,.75)); glow.addColorStop(1, hexA(d.dark,0));
+  ctx.fillStyle = glow; ctx.fillRect(0,0,W,H);
+
+  if (photo) drawPhoto(ctx, W, H); else drawHero(ctx, W, H, d);
+
+  // painel inferior
+  const sp = H*.555;
+  const pg = ctx.createLinearGradient(0, sp, 0, H);
+  pg.addColorStop(0,"rgba(12,12,12,.55)"); pg.addColorStop(1,"rgba(12,12,12,.85)");
+  ctx.fillStyle = pg; ctx.fillRect(0, sp, W, H-sp);
+  ctx.fillStyle = hexA(d.light,.35); ctx.fillRect(0, sp, W, W*.002);
+  ctx.restore();
+
+  // contorno interior fino
+  insetPath(ctx, W, H, .032); ctx.lineWidth = W*.0022; ctx.strokeStyle = "rgba(255,255,255,.14)"; ctx.stroke();
+
+  // coluna da esquerda
+  const lx = W*.185;
+  ctx.textAlign="center"; ctx.textBaseline="alphabetic";
+  ctx.fillStyle="#fff"; track(ctx,-W*.006); ctx.font=F(900, W*.19); ctx.fillText("99", lx, H*.205);
+  track(ctx, W*.004); ctx.fillStyle=d.light; ctx.font=F(700, W*.068); ctx.fillText(d.pos, lx, H*.262);
+  track(ctx,0);
+  ctx.fillStyle="rgba(255,255,255,.28)"; ctx.fillRect(lx-W*.06, H*.285, W*.12, W*.003);
+  // bandeira do departamento
+  const fw=W*.11, fh=W*.068, fx=lx-fw/2, fy=H*.305;
+  ctx.save(); ctx.beginPath(); ctx.roundRect ? ctx.roundRect(fx,fy,fw,fh,W*.008) : ctx.rect(fx,fy,fw,fh); ctx.clip();
+  ctx.fillStyle=d.light; ctx.fillRect(fx,fy,fw,fh/2); ctx.fillStyle=d.dark; ctx.fillRect(fx,fy+fh/2,fw,fh/2); ctx.restore();
+  ctx.fillStyle="rgba(255,255,255,.28)"; ctx.fillRect(lx-W*.06, H*.375, W*.12, W*.003);
+
+  // nome
+  ctx.fillStyle="#fff"; track(ctx, W*.002);
+  const ns = fitText(ctx, name, 900, W*.098, W*.78);
+  ctx.font=F(900, ns); ctx.fillText(name, W*.5, H*.635);
+  track(ctx,0);
+  const ln = ctx.createLinearGradient(W*.12,0,W*.88,0);
+  ln.addColorStop(0,hexA(d.light,0)); ln.addColorStop(.5,hexA(d.light,.7)); ln.addColorStop(1,hexA(d.light,0));
+  ctx.fillStyle=ln; ctx.fillRect(W*.12, H*.662, W*.76, W*.0028);
+
+  // stats
+  const rows=[H*.725,H*.785,H*.845];
+  d.stats.forEach((code,i)=>{
+    const col=Math.floor(i/3), ry=rows[i%3];
+    const vx = col ? W*.56 : W*.27;
+    ctx.textAlign="right"; ctx.fillStyle="#fff"; ctx.font=F(900, W*.066); ctx.fillText("99", vx+W*.045, ry);
+    ctx.textAlign="left"; ctx.fillStyle=d.light; ctx.font=F(400, W*.062); track(ctx, W*.003);
+    ctx.fillText(code, vx+W*.07, ry); track(ctx,0);
+  });
+  ctx.fillStyle="rgba(255,255,255,.18)"; ctx.fillRect(W*.5-W*.0012, H*.69, W*.0024, H*.17);
+
+  // logotipo em baixo
+  ctx.fillStyle="rgba(255,255,255,.25)"; ctx.fillRect(W*.44, H*.885, W*.12, W*.0025);
+  if (logo.complete && logo.naturalWidth){
+    const ls=W*.07, ar=logo.naturalHeight/logo.naturalWidth;
+    ctx.drawImage(logo, W*.5-ls/2, H*.905, ls, ls*ar);
+  }
+  ctx.restore();
+}
+
+function render(){
+  const c=$("card"), ctx=c.getContext("2d");
+  ctx.clearRect(0,0,c.width,c.height);
+  drawCard(ctx, 0, 0, c.width);
+}
+
+function buildCardPNG(){
+  const c=document.createElement("canvas"); c.width=1200; c.height=1680;
+  drawCard(c.getContext("2d"), 0, 0, 1200);
+  return c;
+}
+function buildStory(){
+  const c=document.createElement("canvas"); c.width=1080; c.height=1920;
+  const ctx=c.getContext("2d"), d=dept;
+  ctx.fillStyle="#0C0C0C"; ctx.fillRect(0,0,1080,1920);
+  let g=ctx.createRadialGradient(180,-100,0,180,-100,1300); g.addColorStop(0,hexA(d.dark,.85)); g.addColorStop(1,hexA(d.dark,0));
+  ctx.fillStyle=g; ctx.fillRect(0,0,1080,1920);
+  g=ctx.createRadialGradient(1040,2000,0,1040,2000,900); g.addColorStop(0,"rgba(238,145,90,.22)"); g.addColorStop(1,"rgba(238,145,90,0)");
+  ctx.fillStyle=g; ctx.fillRect(0,0,1080,1920);
+  g=ctx.createRadialGradient(540,1050,0,540,1050,520); g.addColorStop(0,hexA(d.light,.28)); g.addColorStop(1,hexA(d.light,0));
+  ctx.fillStyle=g; ctx.fillRect(0,0,1080,1920);
+
+  // pill
+  ctx.font=F(400,30); ctx.textAlign="left";
+  const pt="Recrutamento EPIC Júnior", pw=ctx.measureText(pt).width+84, px=540-pw/2, py=310;
+  ctx.fillStyle="rgba(255,255,255,.06)"; ctx.strokeStyle="rgba(255,255,255,.14)"; ctx.lineWidth=2;
+  ctx.beginPath(); ctx.roundRect ? ctx.roundRect(px,py,pw,62,31) : ctx.rect(px,py,pw,62); ctx.fill(); ctx.stroke();
+  ctx.fillStyle="#EE915A"; ctx.beginPath(); ctx.arc(px+34,py+31,6,0,Math.PI*2); ctx.fill();
+  ctx.fillStyle="rgba(255,255,255,.75)"; ctx.fillText(pt, px+54, py+41);
+
+  ctx.textAlign="center"; ctx.fillStyle="#fff"; track(ctx,-3);
+  const hs=fitText(ctx,"Vou vestir a camisola.",700,92,900); ctx.font=F(700,hs); ctx.fillText("Vou vestir a camisola.",540,480);
+  track(ctx,0);
+  ctx.save(); ctx.shadowColor="rgba(0,0,0,.6)"; ctx.shadowBlur=60; ctx.shadowOffsetY=30;
+  drawCard(ctx, 540-370, 560, 740); ctx.restore();
+  return c;
+}
+
+$("name").addEventListener("input", render);
+$("photoBtn").addEventListener("click", ()=> $("photo").click());
+$("photo").addEventListener("change", e=>{
+  const f=e.target.files&&e.target.files[0]; if(!f) return;
+  const r=new FileReader();
+  r.onload=()=>{ const img=new Image(); img.onload=()=>{ photo=img; $("rmphoto").hidden=false; $("photoBtn").textContent="Trocar fotografia"; render(); }; img.src=r.result; };
+  r.readAsDataURL(f);
+});
+$("rmphoto").addEventListener("click", ()=>{ photo=null; $("photo").value=""; $("rmphoto").hidden=true; $("photoBtn").textContent="Adicionar fotografia"; render(); });
+
+let downloads=null;
+try{ window.claude?.use?.("downloads").then(d=>{downloads=d;}).catch(()=>{}); }catch(e){}
+function showFallback(c){ $("ovimg").src=c.toDataURL("image/png"); $("overlay").classList.add("on"); $("ovclose").focus(); }
+$("ovclose").addEventListener("click", ()=> $("overlay").classList.remove("on"));
+$("save").addEventListener("click", async ()=>{
+  const st=$("status"); st.textContent="";
+  const c=buildCardPNG();
+  if(!downloads){ showFallback(c); return; }
+  const blob=await new Promise(r=>c.toBlob(r,"image/png"));
+  const slug=($("name").value.trim()||"epic").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-");
+  try{ await downloads.save({filename:`carta-epic-${slug}.png`, data:blob}); st.textContent="Imagem exportada. Agora é partilhar nos stories."; }
+  catch(err){
+    if(err&&err.code==="declined") return;
+    if(err&&err.code==="rate_limited"){ st.textContent="Já há um pedido aberto. Tenta outra vez daqui a pouco."; return; }
+    showFallback(c);
+  }
+});
+
+applyTheme(dept);
+logo.onload = render;
+(async ()=>{
+  render();
+  try{ await Promise.all([document.fonts.load(F(900,100)),document.fonts.load(F(700,100)),document.fonts.load(F(400,100))]); }catch(e){}
+  render();
+})();
+</script>
+</body>
+</html>
